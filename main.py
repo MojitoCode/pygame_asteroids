@@ -12,7 +12,7 @@ from shot import *
 
 def main():
 	pygame.init()
-	
+
 	#initialize groups to contain updatable, drawable, and asteroid items
 	updatable = pygame.sprite.Group()
 	drawable = pygame.sprite.Group()
@@ -53,6 +53,12 @@ def main():
 		#initialize player movement
 		for item in updatable:
 			item.update(dt)
+
+		for asteroid in asteroids:
+			for bullet in shots:
+				if bullet.detect_collisions(asteroid):
+					asteroid.kill()
+					bullet.kill()
 
 		#check for collisions
 		for item in asteroids:
